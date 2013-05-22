@@ -100,6 +100,8 @@ rewrite = (input, type) ->
     when 'js' then rewriteJava input
 
 rewriteJava = (input) ->
+  if doctest.module
+    input = 'function define(f){f();};'+input
   input = input.replace /\r\n?/g, '\n'
   f = (indent, expr) ->
       "function() {\n#{indent}  return #{expr}\n#{indent}}"
